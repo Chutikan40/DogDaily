@@ -1,0 +1,56 @@
+﻿@using DogDaily.Models.AccountModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model LoginViewModel
+
+<h2>Login</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <div style="position:relative;">
+            <input asp-for="Password" type="password" id="loginPassword" />
+            <span asp-validation-for="Password"></span>
+            <button type="button" onclick="togglePassword('loginPassword', this)"
+                    style="position:absolute; right:10px; top:0;">
+                👁️
+            </button>
+        </div>
+    </div>
+    <div>
+        <input asp-for="RememberMe" />
+        <label asp-for="RememberMe">Remember me?</label>
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+<script>
+    function togglePassword(fieldId, button) {
+        var passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            button.innerText = "🙈";  // ไอคอนปิดตา
+        } else {
+            passwordField.type = "password";
+            button.innerText = "👁️";  // ไอคอนเปิดตา
+        }
+    }
+</script>

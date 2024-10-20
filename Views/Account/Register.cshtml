@@ -1,0 +1,65 @@
+﻿@using DogDaily.Models.AuthModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RegisterViewModel
+
+
+
+<h2>Register</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+<form asp-action="Register" method="post">
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <div style="position:relative;">
+            <input asp-for="Password" type="password" id="registerPassword" />
+            <span asp-validation-for="Password"></span>
+            <button type="button" onclick="togglePassword('registerPassword', this)"
+                    style="position:absolute; right:10px; top:0;">
+                👁️
+            </button>
+        </div>
+    </div>
+    <div>
+        <label asp-for="ConfirmPassword"></label>
+        <div style="position:relative;">
+            <input asp-for="ConfirmPassword" type="password" id="confirmPassword" />
+            <span asp-validation-for="ConfirmPassword"></span>
+            <button type="button" onclick="togglePassword('confirmPassword', this)"
+                    style="position:absolute; right:10px; top:0;">
+                👁️
+            </button>
+        </div>
+    </div>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function togglePassword(fieldId, button) {
+        var passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            button.innerText = "🙈";  // ไอคอนปิดตา
+        } else {
+            passwordField.type = "password";
+            button.innerText = "👁️";  // ไอคอนเปิดตา
+        }
+    }
+</script>
